@@ -10,10 +10,6 @@ export class HeaderView extends Component {
           headerText: "Home",
         },
         {
-          link: "/profile",
-          headerText: "Profil",
-        },
-        {
           link: "/info",
           headerText: "Info",
         },
@@ -28,14 +24,6 @@ export class HeaderView extends Component {
         {
           link: "/contact",
           headerText: "Service & Kontakt",
-        },
-        {
-          link: "/settings",
-          headerText: "Einstellungen"
-        },
-        {
-          link: "/admin",
-          headerText: "Adminbereich"
         }
       ]
     };
@@ -43,7 +31,7 @@ export class HeaderView extends Component {
 
   render() {
     return (
-      <header>
+      <div>
         <nav>
           <ul>
             {this.getItems().headerList.map(
@@ -56,7 +44,7 @@ export class HeaderView extends Component {
             )}
           </ul>
         </nav>
-      </header>
+      </div>
     );
   }
 }

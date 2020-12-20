@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import React, { Component } from "react";
 import Header from "./component/header.view";
 import Main from "./component/main.view";
@@ -18,4 +19,4 @@ export class AppView extends Component {
   }
 }
 
-export default AppView;
+export default hot(AppView);

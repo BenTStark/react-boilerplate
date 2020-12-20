@@ -1,5 +1,6 @@
 /build
-/src/node_modules
-/src/yarn-error.log
-/src/yarn.lock
+/src/dist
+/node_modules
+/yarn-error.log
+/yarn.lock
 config.yaml

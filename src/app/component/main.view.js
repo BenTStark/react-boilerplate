@@ -11,14 +11,22 @@ export class Main extends Component {
   render() {
     return (
       <div>
-        {" "}
         <Switch>
-          {" "}
-          <Route exact path="/" component={Home} />{" "}
-          <Route exact path="/info" component={Info} />{" "}
-          <Route exact path="/calendar" component={Calendar} />{" "}
-          <Route exact path="/download" component={Download} />{" "}
-          <Route exact path="/contact" component={Contact} />{" "}
+          <Route exact path="/">
+            <Home/>
+          </Route>
+          <Route exact path="/info">
+            <Info/>
+          </Route>
+          <Route exact path="/calendar">
+            <Calendar/>
+          </Route>
+          <Route exact path="/download">
+            <Download/>
+          </Route>
+          <Route exact path="/contact">
+            <Contact/>
+          </Route>
         </Switch>
       </div>
     );
