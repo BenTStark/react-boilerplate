@@ -10,20 +10,20 @@ export class HeaderView extends Component {
           headerText: "Home",
         },
         {
-          link: "/info",
-          headerText: "Info",
+          link: "/ordinary",
+          headerText: "Ordinary Table",
         },
         {
-          link: "/calendar",
-          headerText: "Kalendar",
+          link: "/timeseries",
+          headerText: "Timeseries Table",
         },
         {
-          link: "/download",
-          headerText: "Download",
+          link: "/versionised",
+          headerText: "Versionised Table",
         },
         {
-          link: "/contact",
-          headerText: "Service & Kontakt",
+          link: "/image",
+          headerText: "Image Table",
         }
       ]
     };

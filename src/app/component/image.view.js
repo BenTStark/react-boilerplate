@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
-export class Download extends Component {
+export class Image extends Component {
   render() {
     return (
       <div>
-        <h1>Download Page</h1>
+        <h1>Image Table</h1>
       </div>
     );
   }
 }
 
-export default Download;
+export default Image;

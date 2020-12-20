@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
-export class Calendar extends Component {
+export class Versionised extends Component {
   render() {
     return (
       <div>
-        <h1>Calendar Page</h1>
+        <h1>Versionised Table</h1>
       </div>
     );
   }
 }
 
-export default Calendar;
+export default Versionised;

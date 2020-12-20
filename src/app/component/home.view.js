@@ -12,7 +12,7 @@ export class Home extends Component {
         return (
             <div>
               <h1>
-                Willkommen auf der Website!
+                Welcome to React-Boilerplate Sceleton
               </h1>
             </div>
 
