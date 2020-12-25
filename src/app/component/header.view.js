@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import '../scss/header.scss';
 
 export class HeaderView extends Component {
   getItems() {
@@ -33,11 +34,11 @@ export class HeaderView extends Component {
     return (
       <div>
         <nav>
-          <ul>
+          <ul className="containerNavigation">
             {this.getItems().headerList.map(
               (item, index) =>
                 (
-                  <li key={item.headerText}>
+                  <li key={item.headerText} className="navigationListItem">
                     <Link to={item.link}>{item.headerText}</Link>
                   </li>
                 )

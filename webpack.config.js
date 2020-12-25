@@ -83,7 +83,11 @@ Webpack Options
 // Generel parameter configuration for every webpack build
 var DEFAULT_PARAMS = {
   resolve: {
-    extensions: [".js"]
+    extensions: [".js"],
+    fallback: {
+      "stream": require.resolve("stream-browserify"),
+      "buffer": require.resolve("buffer/")
+    } 
   },
   entry: { index: path.resolve(__dirname, "src/app", "index.js") },
   // entry: [
