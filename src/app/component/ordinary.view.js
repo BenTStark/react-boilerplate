@@ -12,8 +12,7 @@ import "../scss/ordinary.scss";
 
 const API_URL = 'http://192.168.178.44:5000/ordinary'
 
-// TO DO: comment everything
-// aktuell muss nach csv upload immer pro Zeile neu gelaen werden. Kann das mit einem Promise auch erst am ende geschehen?
+// TO DO: aktuell muss nach csv upload immer pro Zeile neu gelaen werden. Kann das mit einem Promise auch erst am ende geschehen?
 
 export class Ordinary extends Component {
   constructor(props) {
@@ -34,7 +33,6 @@ export class Ordinary extends Component {
     this.handleOnDrop = this.handleOnDrop.bind(this);
     this.handleOnError = this.handleOnError.bind(this);
   }
-
   // Function to get Data from REST API
   getData() {
     axios({
@@ -47,7 +45,6 @@ export class Ordinary extends Component {
       })
     })
   }
-
   // Function to post Data to REST API
   // isStateless: update component State: True/False
   postData(nextId,info,isStateless) {
@@ -73,7 +70,7 @@ export class Ordinary extends Component {
       }
     })
   }
-
+  // Function to update Data in REST API
   putData(id,info) {
     axios({
       method: 'put',
@@ -125,7 +122,7 @@ export class Ordinary extends Component {
       }
     }));
   };
-
+  // Cancel when Item in Editmode. editId is set back to -1
   cancelItem(i,state)  {
     this.setState(prevState => ({
       edit: {
@@ -134,7 +131,7 @@ export class Ordinary extends Component {
       }
     }));
   };
-
+  // Function to call when "Save" Button is clicked. Starts REST API POST and updates state
   putItem(i,state)  {
     this.putData(i,this.state.edit.editInfo)
     this.setState(prevState => ({
@@ -144,7 +141,8 @@ export class Ordinary extends Component {
       }
     }));
   };
-
+  // Function to call when "Edit" Button is clicked.
+  // All other edit buttos are disabled and selected Item goes into Edit Mode.
   editItem(item,state)  {
     this.setState(prevState => ({
       edit: {
@@ -163,7 +161,6 @@ export class Ordinary extends Component {
   onChangeItem(event) {
     this.setState({info: event.target.value})     
   }
-
   // Update state after input filed in EditMode of (Row in table)
   onChangeEditItem(event) {
     this.setState(prevState => ({
@@ -173,7 +170,6 @@ export class Ordinary extends Component {
       }
     }));
   };    
-
   // Handle Form Submit, i.e. send data to database 
   // and update state.
   handleSubmitItem(event) {
@@ -184,7 +180,7 @@ export class Ordinary extends Component {
       alert('Cannot perform request. No API connection so far.')
     }
   }
-
+  // Helper Function to check CSV File. 
   checkCSVMetaData(meta,metaTarget) {
     if (meta.length !== metaTarget.length) {
       console.log("Too many fields in CSV file.")
@@ -198,7 +194,6 @@ export class Ordinary extends Component {
     return true
 
   }
-
   // Drop CSV File on Drop Zone.
   handleOnDrop(data) {
     const meta = data[0].meta.fields
@@ -212,7 +207,6 @@ export class Ordinary extends Component {
       console.log("The Fields in CSV have differences to table fields!")
     }
   };
-
   // If File Drop leads to Error
   handleOnError(err, file, inputElem, reason) {
     console.log(err)
@@ -290,6 +284,7 @@ export class Ordinary extends Component {
 }
 
 function OrdinaryItem(props) {
+  // Active Edit Mode: Show Input field and "Cancel" and "Save" Button
   const activeEditModeOn = (id,editId) => {
     if (_.isEqual(id,editId)) {
       return true
@@ -297,7 +292,7 @@ function OrdinaryItem(props) {
       return false
     }      
   }
-
+  // Passive Edit Mode: Disabled "Edit" Field.
   const passiveEditModeOn = (editId) => {
     if (_.isEqual(-1,editId)) {
       return false
