@@ -15,12 +15,12 @@ Plugins
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 //------------------
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 //   .BundleAnalyzerPlugin;
 // const CleanWebpackPlugin = require("clean-webpack-plugin");
 // const Dotenv = require("dotenv-webpack");
 
-// const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 //const UglifyWebpackPlugin = require("uglifyjs-webpack-plugin");
 
@@ -44,7 +44,7 @@ const moduleObj = {
 /****************************
 Basic Config
 ****************************/
-// const smp = new SpeedMeasurePlugin();
+const smp = new SpeedMeasurePlugin();
 
 // // Wifi 
 // var myEnv = minimist(process.argv.slice(2)).ENV;
@@ -103,30 +103,33 @@ var DEFAULT_PARAMS = {
       filename: "index.html",
       template: 'src/app/index.html'
       //template: path.resolve(__dirname, "app", "index.html")
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
 
 // Special Parameters: Depending on args TARGET
 var PARAMS_PER_TARGET = {
-  // DEV: {
-  //   devtool: "source-map",
-  //   output: {
-  //     filename: "index.js"
-  //   },
-  //   mode: "development",
-  //   optimization: {
-  //     minimize: false
-  //   },
-  //   plugins: [
-  //     new CleanWebpackPlugin(["dist/public"]),
-  //     new BundleAnalyzerPlugin({ analyzerMode: "disabled" })
-  //   ]
-  // },
+  DEV: {
+    devtool: "source-map",
+    output: {
+      filename: "index.js"
+    },
+    mode: "development",
+    optimization: {
+      minimize: false
+    },
+    plugins: [
+      new BundleAnalyzerPlugin({ analyzerMode: "disabled" })
+    ]
+  },
 
   DEV_SERVER: {
     devtool: "source-map",
     mode: "development",
+    watchOptions: {
+      ignored: /node_modules/
+    },
     output: {
       filename: "index.js",
       publicPath: "/"
