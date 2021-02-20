@@ -156,27 +156,39 @@ export class List extends Component {
   // isStateless: update component State: True/False
 
   // id weg!!!!! TODO... CHECK ALL
-  postData = (columns_no_autofill, isStateless) => {
+  postData = (columns_no_autofill, isList, isStateless) => {
     this.setState({ submitIsLoading: true });
-    axios({
-      method: "post",
-      headers: { "Access-Control-Allow-Origin": "*" },
-      url: API_URL + this.props.endpoint,
-      data: columns_no_autofill,
-    }).then((response) => {
-      if (!isStateless) {
-        // Add submitted Item to state.
-        this.setState((state) => {
-          const newItem = { ...columns_no_autofill, ...this.state.autofill };
-          const data = [...state.data, newItem];
-          return {
-            data,
-            autofill: response.data.autofill,
-            submitIsLoading: false,
-          };
-        });
-      }
-    });
+    if (isList) {
+      axios({
+        method: "post",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        url: API_URL + this.props.endpoint + "/list",
+        data: { payload: columns_no_autofill },
+      });
+    } else {
+      axios({
+        method: "post",
+        headers: { "Access-Control-Allow-Origin": "*" },
+        url: API_URL + this.props.endpoint,
+        data: columns_no_autofill,
+      }).then((response) => {
+        if (!isStateless) {
+          // Add submitted Item to state.
+          this.setState((state) => {
+            const newItem = { ...columns_no_autofill, ...this.state.autofill };
+            const data = [...state.data, newItem];
+            return {
+              data,
+              autofill: response.data.autofill,
+              submitIsLoading: false,
+            };
+          });
+        }
+      });
+    }
   };
 
   // Function to update Data in REST API; state update happens implicitly
@@ -247,6 +259,7 @@ export class List extends Component {
             })
         )
       ),
+      false,
       false
     );
     this.resetEdit();
@@ -313,13 +326,12 @@ export class List extends Component {
     );
     // Object.keys(this.state.meta.columns_no_autofill)
     if (this.checkCSVMetaData(meta, metaTarget)) {
+      postData = [];
       data.map((item) => {
-        this.postData(
-          _.omit(item.data, Object.keys(this.state.autofill)),
-          true
-        );
-        this.getData();
+        postData.append(_.omit(item.data, Object.keys(this.state.autofill)));
       });
+      this.postData(postData, true, true);
+      this.getData();
     } else {
       console.log("The Fields in CSV have differences to table fields!");
     }
