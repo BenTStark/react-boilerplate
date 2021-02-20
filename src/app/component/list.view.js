@@ -167,6 +167,8 @@ export class List extends Component {
         },
         url: API_URL + this.props.endpoint + "/list",
         data: { payload: columns_no_autofill },
+      }).then((response) => {
+        this.getData();
       });
     } else {
       axios({
@@ -326,12 +328,11 @@ export class List extends Component {
     );
     // Object.keys(this.state.meta.columns_no_autofill)
     if (this.checkCSVMetaData(meta, metaTarget)) {
-      postData = [];
+      let postData = [];
       data.map((item) => {
-        postData.append(_.omit(item.data, Object.keys(this.state.autofill)));
+        postData.push(_.omit(item.data, Object.keys(this.state.autofill)));
       });
       this.postData(postData, true, true);
-      this.getData();
     } else {
       console.log("The Fields in CSV have differences to table fields!");
     }
